@@ -6,6 +6,10 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.time.Duration;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 import com.google.gson.Gson;
 
@@ -241,8 +245,10 @@ public class GameService {
 
     public void saveGame(Long userId, Long mapId) {
         Long roomId = getGame(userId, mapId).getCurrentRoomId();
-        LocalDateTime endDate = LocalDateTime.now();
-        endDate = endDate.minusHours(1);
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String endDate = dateFormat.format(date);
         GameRepository.saveGame(userId, roomId, endDate, mapId);
     }
 

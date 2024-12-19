@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 import java.util.List;
-import java.time.LocalDateTime;
 
 import com.esliceu.maze.models.Map;
 import com.esliceu.maze.models.Door;
@@ -120,7 +119,7 @@ public class GameRepository {
         return jdbcTemplate.query("SELECT keyId AS id, name FROM `games_keys` INNER JOIN `keys` ON `keys`.id = `games_keys`.keyId WHERE gamesId = ?", BeanPropertyRowMapper.newInstance(Key.class), gameId);
     }
 
-    public void saveGame(Long userId, Long roomId, LocalDateTime endDate, Long mapId) {
+    public void saveGame(Long userId, Long roomId, String endDate, Long mapId) {
         jdbcTemplate.update("UPDATE games SET currentRoomId = ?, endDate = ? WHERE userId = ? AND endDate IS NULL AND mapId = ?", roomId, endDate, userId, mapId);
     }
 
