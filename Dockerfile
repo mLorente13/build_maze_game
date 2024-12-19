@@ -1,5 +1,8 @@
-FROM openjdk:21-jdk-slim
-ARG WAR_FILE=target/maze-0.0.1.war
-COPY ${WAR_FILE} maze_game.war
+FROM maven:3.8.5-openjdk-17 AS build
+COPY . .
+RUN mvn clean package -DskipTests
+
+FROM openjdk:17.0.1-jdk-slim
+COPY --from=build /target/maze-0.0.1.jar demo.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "maze_game.war"]
+ENTRYPOINT ["java", "-jar", "demo.jar"]

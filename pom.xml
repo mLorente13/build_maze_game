@@ -11,7 +11,6 @@
 	<groupId>com.esliceu</groupId>
 	<artifactId>maze</artifactId>
 	<version>0.0.1</version>
-	<packaging>war</packaging>
 	<name>maze</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
